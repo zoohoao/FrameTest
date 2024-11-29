@@ -1,0 +1,14 @@
+﻿<Window x:Class="ShareResourceMain.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ShareResourceMain"
+        mc:Ignorable="d"
+        DataContext="{StaticResource loctor}"
+        Title="MainWindow" Height="450" Width="800">
+
+    <Grid>
+        <Button Style="{StaticResource CustomButtonStyle}"  Width="120" Height="50" Content="MAIN" />
+    </Grid>
+</Window>

@@ -53,7 +53,7 @@ namespace MVVMlight.ViewModel
             MessageBox.Show($"Settings updated: {message.UpdatedSetting}");
         }
 
-        private void UpdateText()
+        public void UpdateText()
         {
             Text = "You clicked the button!";
         }

@@ -1,0 +1,16 @@
+﻿<Application x:Class="ShareResource.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:ShareResource"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <local:ViewModelLoctor x:Key="loctor" />
+
+            <ResourceDictionary.MergedDictionaries>
+                <!-- 引用按钮样式文件 -->
+                <ResourceDictionary Source="Style/Style.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
