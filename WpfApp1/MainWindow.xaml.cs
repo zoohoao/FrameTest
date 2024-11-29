@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Autofac.StartBoot
+namespace WpfApp1
 {
     /// <summary>
-    /// StartBootView.xaml 的交互逻辑
+    /// MainWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class StartBootView : Window
+    public partial class MainWindow : Window
     {
-        public StartBootView()
+        public MainWindow()
         {
             InitializeComponent();
         }

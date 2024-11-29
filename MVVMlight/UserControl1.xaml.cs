@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Autofac.StartBoot
+namespace MVVMlight
 {
     /// <summary>
-    /// StartBootView.xaml 的交互逻辑
+    /// UserControl1.xaml 的交互逻辑
     /// </summary>
-    public partial class StartBootView : Window
+    public partial class UserControl1 : UserControl
     {
-        public StartBootView()
+        public UserControl1()
         {
             InitializeComponent();
         }

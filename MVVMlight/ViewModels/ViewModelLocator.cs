@@ -32,6 +32,7 @@ namespace MVVMlight.ViewModel
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<SettingsViewModel>();
+            SimpleIoc.Default.Register<MyUserControlViewModel>();
         }
 
         public MainViewModel Main
@@ -47,6 +48,14 @@ namespace MVVMlight.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<SettingsViewModel>();
+            }
+        }
+
+        public MyUserControlViewModel MyUserControlViewModel1
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<MyUserControlViewModel>();
             }
         }
 
