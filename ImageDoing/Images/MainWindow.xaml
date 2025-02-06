@@ -1,0 +1,69 @@
+﻿<Window x:Class="ImageDoing.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ImageDoing"
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen"
+        Loaded="Window_Loaded"
+        Title="WPF Image Zoom and Pan" Height="960" Width="1400">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height="9*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="8*" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+        <!-- 在左上角显示文字，使用 TextBlock 或 Label 均可 -->
+
+        <Grid Grid.Row="1">
+
+            <!--<ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">-->
+            <Viewbox Stretch="Uniform">
+                <Canvas x:Name="MyCanvas"
+                Background="LightGray"
+                MouseWheel="MyCanvas_MouseWheel"
+                MouseLeftButtonDown="MyCanvas_MouseLeftButtonDown"
+                MouseLeftButtonUp="MyCanvas_MouseLeftButtonUp"
+                MouseMove="MyCanvas_MouseMove">
+                    <!-- 在 Canvas 中放一张 Image，通过 RenderTransform 做缩放和平移 -->
+                    <Image x:Name="MyImage"
+                               Source="Images/1.png"
+                               RenderTransformOrigin="0,0"
+                                HorizontalAlignment="Left"
+                               VerticalAlignment="Top"
+                               Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Canvas}}"
+                               Height="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=Canvas}}"
+
+                              RenderOptions.BitmapScalingMode="NearestNeighbor"
+                               Stretch="Uniform">
+
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <!-- 缩放变换 -->
+                                <ScaleTransform x:Name="scaleTransform" ScaleX="1" ScaleY="1" />
+                                <!-- 平移变换 -->
+                                <TranslateTransform x:Name="translateTransform" X="0" Y="0" />
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                </Canvas>
+            </Viewbox>
+            <!--</ScrollViewer>-->
+        </Grid>
+        <TextBlock Grid.Row="0" Grid.Column="0" x:Name="InfoTextBlock"
+                       FontSize="12"
+                       Foreground="Black"
+                   VerticalAlignment="Top"
+                       Margin="10,3,0,0">
+                显示缩放倍数、鼠标坐标
+        </TextBlock>
+        <Grid Grid.Column="1" Background="White">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top">
+                <Button Margin="0,5,0,0" Click="Button_Click" Content="Load_NewPhoto"></Button>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

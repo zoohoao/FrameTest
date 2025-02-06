@@ -1,0 +1,167 @@
+﻿<Window
+    x:Class="AvalonDockTest.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:avalonDockControls="https://github.com/Dirkster99/AvalonDock"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:AvalonDockTest"
+    xmlns:local1="clr-namespace:ImageDoing;assembly=ImageDoing"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="MainWindow"
+    Width="1920"
+    Height="1060"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <Style TargetType="avalonDockControls:AnchorablePaneTitle">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                            <Grid Background="#5b5b59">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <avalonDockControls:DropDownControlArea DropDownContextMenu="{Binding Model.Root.Manager.AnchorableContextMenu, RelativeSource={RelativeSource TemplatedParent}}" DropDownContextMenuDataContext="{Binding Path=LayoutItem, RelativeSource={RelativeSource TemplatedParent}}">
+                                    <ContentPresenter
+                                        Content="{Binding Model, RelativeSource={RelativeSource TemplatedParent}}"
+                                        ContentTemplate="{Binding Model.Root.Manager.AnchorableTitleTemplate, RelativeSource={RelativeSource TemplatedParent}}"
+                                        ContentTemplateSelector="{Binding Model.Root.Manager.AnchorableTitleTemplateSelector, RelativeSource={RelativeSource TemplatedParent}}" />
+                                </avalonDockControls:DropDownControlArea>
+
+                                <Button
+                                    x:Name="PART_AutoHidePin"
+                                    Grid.Column="2"
+                                    Command="{Binding Path=LayoutItem.AutoHideCommand, RelativeSource={RelativeSource TemplatedParent}}"
+                                    Focusable="False"
+                                    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                                    ToolTip="自动隐藏"
+                                    Visibility="Visible">
+                                    <Border Background="Transparent">
+                                        <Image Source="Images/PinAutoHide.png" />
+                                    </Border>
+                                </Button>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <DataTrigger Binding="{Binding Model.CanAutoHide, RelativeSource={RelativeSource Mode=Self}}" Value="False">
+                                <Setter TargetName="PART_AutoHidePin" Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <DockingManager x:Name="dockManager" AllowMixedOrientation="True">
+            <DockingManager.AnchorableHeaderTemplate>
+                <DataTemplate>
+                    <TextBlock
+                        FontSize="22"
+                        Text="{Binding Title}"
+                        TextTrimming="CharacterEllipsis" />
+                </DataTemplate>
+            </DockingManager.AnchorableHeaderTemplate>
+
+            <DockingManager.AnchorableTitleTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="100" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            Grid.Column="0"
+                            Margin="7,7,7,7"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            FontSize="20"
+                            Foreground="White"
+                            Text="{Binding ContentId}" />
+
+                        <TextBlock
+                            Grid.Column="1"
+                            Margin="7,7,7,7"
+                            HorizontalAlignment="Center"
+                            FontSize="20"
+                            Foreground="White"
+                            Text="{Binding ToolTip}" />
+                    </Grid>
+                </DataTemplate>
+            </DockingManager.AnchorableTitleTemplate>
+
+            <LayoutRoot>
+                <LayoutRoot.LeftSide>
+                    <LayoutAnchorSide>
+                        <LayoutAnchorGroup>
+                            <LayoutAnchorable
+                                Title="Chanel1"
+                                ContentId="Chanel1-Tree"
+                                ToolTip="Tiff-Tree" />
+                        </LayoutAnchorGroup>
+                    </LayoutAnchorSide>
+                </LayoutRoot.LeftSide>
+
+                <LayoutRoot.RootPanel>
+                    <LayoutPanel>
+                        <LayoutAnchorablePane>
+                            <LayoutAnchorable
+                                Title="Chanel1"
+                                CanAutoHide="False"
+                                CanClose="False"
+                                CanMove="False"
+                                ContentId="Chanel1">
+
+                                <Grid>
+                                    <ScrollViewer VerticalScrollBarVisibility="Disabled">
+                                        <local1:ImageViewerView x:Name="image1" />
+                                    </ScrollViewer>
+                                </Grid>
+                            </LayoutAnchorable>
+                        </LayoutAnchorablePane>
+                    </LayoutPanel>
+                </LayoutRoot.RootPanel>
+
+                <LayoutRoot.RightSide>
+                    <LayoutAnchorSide>
+                        <LayoutAnchorGroup>
+                            <LayoutAnchorable Title="A-Scan" ContentId="A-Scan">
+                                <Grid Background="#aeafaa">
+                                    <Button
+                                        Margin="0,10,0,0"
+                                        Click="ButtonLoadImage_Click"
+                                        Content="加载图片" />
+                                </Grid>
+                            </LayoutAnchorable>
+
+                            <LayoutAnchorable Title="Data Processing" ContentId="Data Processing">
+                                <Grid Background="#aeafaa">
+                                    <Button
+                                        Margin="0,10,0,0"
+                                        Click="GCClear"
+                                        Content="GC" />
+                                </Grid>
+                            </LayoutAnchorable>
+                            <LayoutAnchorable Title="Scanner" ContentId="Scanner">
+                                <Grid Background="#aeafaa" />
+                            </LayoutAnchorable>
+
+                            <LayoutAnchorable Title="Log" ContentId="History Log">
+                                <Grid Background="#aeafaa" />
+                            </LayoutAnchorable>
+                        </LayoutAnchorGroup>
+                    </LayoutAnchorSide>
+                </LayoutRoot.RightSide>
+            </LayoutRoot>
+        </DockingManager>
+    </Grid>
+</Window>
