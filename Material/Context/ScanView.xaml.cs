@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Material.Header
+namespace Material.Context
 {
     /// <summary>
-    /// TabMenu.xaml 的交互逻辑
+    /// ScanView.xaml 的交互逻辑
     /// </summary>
-    public partial class TabMenu : Page
+    public partial class ScanView : UserControl
     {
-        public TabMenu()
+        public ScanView()
         {
             InitializeComponent();
         }

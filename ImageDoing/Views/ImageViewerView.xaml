@@ -1,12 +1,14 @@
-﻿<UserControl x:Class="ImageDoing.ImageViewerView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:ImageDoing"
-             mc:Ignorable="d"
-             Loaded="Window_Loaded"
-             d:DesignHeight="960" d:DesignWidth="1400">
+﻿<UserControl
+    x:Class="ImageDoing.ImageViewerView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ImageDoing"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="960"
+    d:DesignWidth="1400"
+    Loaded="Window_Loaded"
+    mc:Ignorable="d">
     <Grid Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -19,18 +21,22 @@
                     <RowDefinition Height="9*" />
                 </Grid.RowDefinitions>
 
-                <Grid x:Name="dock"  Grid.Row="1" Background="Transparent">
-                    <Canvas x:Name="MyCanvas"
-                            Panel.ZIndex="0"
-                Background="Transparent"
-                MouseWheel="MyCanvas_MouseWheel"
-                MouseLeftButtonDown="MyCanvas_MouseLeftButtonDown"
-                MouseLeftButtonUp="MyCanvas_MouseLeftButtonUp"
-                MouseRightButtonDown="MyCanvas_MouseRightButtonDown"
-                MouseRightButtonUp="MyCanvas_MouseRightButtonUp"
-                MouseMove="MyCanvas_MouseMove">
+                <Grid
+                    x:Name="dock"
+                    Grid.Row="1"
+                    Background="Transparent">
+                    <Canvas
+                        x:Name="MyCanvas"
+                        Panel.ZIndex="0"
+                        Background="Transparent"
+                        MouseLeftButtonDown="MyCanvas_MouseLeftButtonDown"
+                        MouseLeftButtonUp="MyCanvas_MouseLeftButtonUp"
+                        MouseMove="MyCanvas_MouseMove"
+                        MouseRightButtonDown="MyCanvas_MouseRightButtonDown"
+                        MouseRightButtonUp="MyCanvas_MouseRightButtonUp"
+                        MouseWheel="MyCanvas_MouseWheel">
 
-                        <!-- 用一个子 Canvas 来承载“图像 + 矩形” -->
+                        <!--  用一个子 Canvas 来承载“图像 + 矩形”  -->
                         <Canvas x:Name="canvasContainer" Panel.ZIndex="0">
                             <Canvas.RenderTransform>
                                 <TransformGroup>
@@ -39,28 +45,31 @@
                                 </TransformGroup>
                             </Canvas.RenderTransform>
 
-                            <!-- 图片本身 -->
-                            <Image x:Name="MyImage"
-                       Stretch="None"
-                       RenderOptions.BitmapScalingMode="NearestNeighbor" />
+                            <!--  图片本身  -->
+                            <Image
+                                x:Name="MyImage"
+                                RenderOptions.BitmapScalingMode="NearestNeighbor"
+                                Stretch="None" />
                         </Canvas>
-                        <!-- 用来显示正被拖拽绘制的“选区” -->
-                        <Rectangle x:Name="TempSelectionRect"
-                       Stroke="Red"
-                       StrokeThickness="1"
-
-                       Visibility="Collapsed" />
+                        <!--  用来显示正被拖拽绘制的“选区”  -->
+                        <Rectangle
+                            x:Name="TempSelectionRect"
+                            Stroke="Red"
+                            StrokeThickness="1"
+                            Visibility="Collapsed" />
                     </Canvas>
                 </Grid>
-                <Grid Grid.Row="0"  Grid.ColumnSpan="2" Background="White">
+                <Grid
+                    Grid.Row="0"
+                    Grid.ColumnSpan="2"
+                    Background="White">
                     <TextBlock
-                       x:Name="InfoTextBlock"
-                       Padding="0,0,0,0"
-                       FontSize="12"
-                       Foreground="Black"
-                       VerticalAlignment="Top"
-                       Margin="0,0,0,0">
-                    </TextBlock>
+                        x:Name="InfoTextBlock"
+                        Margin="0,0,0,0"
+                        Padding="0,0,0,0"
+                        VerticalAlignment="Top"
+                        FontSize="12"
+                        Foreground="Black" />
                 </Grid>
             </Grid>
         </Grid>
