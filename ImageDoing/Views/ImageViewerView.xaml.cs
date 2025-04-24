@@ -1,7 +1,9 @@
-﻿using System;
+﻿using ImageDoing.Models;
+using System;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -167,18 +169,11 @@ namespace ImageDoing
                 // 再Clamp一下
                 ClampTranslate();
             }// 右键画矩形
-            else if (_isRectSelecting)
+            if (_isRectSelecting)
             {
-                // 计算矩形可视化
-                double x = Math.Min(_rectStartPos.X, currentPos.X);
-                double y = Math.Min(_rectStartPos.Y, currentPos.Y);
-                double w = Math.Abs(currentPos.X - _rectStartPos.X);
-                double h = Math.Abs(currentPos.Y - _rectStartPos.Y);
-
-                Canvas.SetLeft(TempSelectionRect, x);
-                Canvas.SetTop(TempSelectionRect, y);
-                TempSelectionRect.Width = w;
-                TempSelectionRect.Height = h;
+                if (!_selector.IsSelecting) return;
+                var pt = e.GetPosition(canvasContainer);
+                _selector.Update(pt, ZoomFactor);
             }
             // 鼠标停留时，无论是否拖拽，都可显示坐标
             UpdateInfoText(currentPos);
@@ -200,39 +195,45 @@ namespace ImageDoing
         // ========== 核心: 限制图像不出窗口（Canvas） ==========
         private void ClampTranslate()
         {
-            //  Canvas 尺寸
             double canvasW = MyCanvas.ActualWidth;
             double canvasH = MyCanvas.ActualHeight;
             if (canvasW <= 0 || canvasH <= 0) return;
 
-            //  图片在当前缩放下的宽高
-            //    如果 MyImage 没固定 width/height，就用 MyImage.ActualWidth/Height 获取真实大小
             double imgW = MyImage.ActualWidth;
             double imgH = MyImage.ActualHeight;
-
             if (imgW <= 0 || imgH <= 0) return;
 
             double scaledW = imgW * scaleTransform.ScaleX;
             double scaledH = imgH * scaleTransform.ScaleY;
 
-            // 计算 X/Y 的最小值与最大值
-            // 当 scaledW < canvasW 时，maxX= (canvasW - scaledW) 将是正值 => 允许向右移动
-            // 当 scaledW > canvasW 时，(canvasW - scaledW) 为负 => 允许向左移动一部分
-            double minX = Math.Min(0, canvasW - scaledW);
-            double maxX = Math.Max(0, canvasW - scaledW);
-            double minY = Math.Min(0, canvasH - scaledH);
-            double maxY = Math.Max(0, canvasH - scaledH);
+            double minX, maxX, minY, maxY;
 
-            // 当前平移
+            if (scaledW <= canvasW)
+            {
+                minX = maxX = (canvasW - scaledW) / 2;
+            }
+            else
+            {
+                minX = canvasW - scaledW;
+                maxX = 0;
+            }
+
+            if (scaledH <= canvasH)
+            {
+                minY = maxY = (canvasH - scaledH) / 2;
+            }
+            else
+            {
+                minY = canvasH - scaledH;
+                maxY = 0;
+            }
+
             double x = translateTransform.X;
             double y = translateTransform.Y;
 
-            // 夹取(Clamp)
-            if (x > maxX) x = maxX;
-
-            if (x < minX) x = minX;
-            if (y > maxY) y = maxY;
-            if (y < minY) y = minY;
+            // 夹取（Clamp）
+            x = Math.Max(minX, Math.Min(x, maxX));
+            y = Math.Max(minY, Math.Min(y, maxY));
 
             translateTransform.X = x;
             translateTransform.Y = y;
@@ -387,7 +388,7 @@ namespace ImageDoing
 
         public void LoadFile(string imagePath)
         {
-            LoadImageWithEffect(imagePath); ;
+            LoadImageStatic(imagePath); ;
         }
 
         // 添加矩形
@@ -421,61 +422,24 @@ namespace ImageDoing
 
         private Point _rectStartPos;            // 起点 (Canvas 坐标)
         private PointF _rectPos;
+        private Rectangle rectangle;
 
         private void MyCanvas_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
-            // 进入“画矩形”模式
             _isRectSelecting = true;
-            _rectStartPos = e.GetPosition(MyCanvas);
-            _rectPos = CurrentPoint;
-            // 显示临时矩形
-            TempSelectionRect.Visibility = Visibility.Visible;
-            Canvas.SetLeft(TempSelectionRect, _rectStartPos.X);
-            Canvas.SetTop(TempSelectionRect, _rectStartPos.Y);
-            TempSelectionRect.Width = 0;
-            TempSelectionRect.Height = 0;
-
-            // 捕获鼠标，使后续 MouseMove 能持续触发
-            MyCanvas.CaptureMouse();
+            _selector = new RectSelector(canvasContainer) { ZoomFactor = ZoomFactor / 1.0 };
+            var pt = e.GetPosition(canvasContainer);
+            _selector.Start(pt);
         }
+
+        private RectSelector _selector;
 
         private void MyCanvas_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
-            if (_isRectSelecting)
-            {
-                _isRectSelecting = false;
-                MyCanvas.ReleaseMouseCapture();
-
-                // 计算最终矩形
-                PointF currentPos = CurrentPoint;
-                double x = Math.Min(_rectPos.X, currentPos.X);
-                double y = Math.Min(_rectPos.Y, currentPos.Y);
-                double w = Math.Abs(currentPos.X - _rectPos.X);
-                double h = Math.Abs(currentPos.Y - _rectPos.Y);
-                // 如果想一次操作只画这一个，就可以把它“固定”下来
-                // 例如克隆一个新的 Rectangle
-                if (w > 1 && h > 1)
-                {
-                    var finalRect = new Rectangle
-                    {
-                        Width = w,
-                        Height = h,
-                        Stroke = Brushes.Red,
-                        StrokeThickness = 1 / ZoomFactor,
-                        //Fill = new SolidColorBrush(Color.FromArgb(80, 255, 0, 0))
-                    };
-                    Canvas.SetLeft(finalRect, x);
-                    Canvas.SetTop(finalRect, y);
-
-                    // 加入到 canvasContainer 或 MyCanvas, 看你想让矩形是否随图片缩放
-                    canvasContainer.Children.Add(finalRect);
-                }
-
-                // 隐藏临时矩形
-                TempSelectionRect.Visibility = Visibility.Collapsed;
-                TempSelectionRect.Width = 0;
-                TempSelectionRect.Height = 0;
-            }
+            if (!_selector.IsSelecting) return;
+            var pt = e.GetPosition(canvasContainer);
+            _selector.Finish(pt, ZoomFactor);
+            _isRectSelecting = false;
         }
 
         private void Timer_Tick(object sender, EventArgs e)

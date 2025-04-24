@@ -57,6 +57,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\ImageDocument.cs" />
+    <Compile Include="Models\RectSelector.cs" />
     <Compile Include="Services\PanZoomService.cs" />
     <Compile Include="ViewModels\ImageViewerViewModel.cs" />
     <Compile Include="Views\ImageViewerView.xaml.cs">
