@@ -1,10 +1,6 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
+using System.Linq;
 using System.Windows;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Threading;
 
 namespace ImageDoing
 {
@@ -33,11 +29,16 @@ namespace ImageDoing
 
         private void ButtonReset_Click(object sender, RoutedEventArgs e)
         {
+            var rects = image1.canvasContainer.Children.OfType<System.Windows.Shapes.Rectangle>().ToList();
+            foreach (var rect in rects)
+            {
+                image1.canvasContainer.Children.Remove(rect);
+            }
         }
 
         private void ButtonLoadImage_Click(object sender, RoutedEventArgs e)
         {
-            image1.LoadFile(@"C:\Users\Administrator\Pictures\openCV/2.png");
+            image1.LoadFile(@"C:\Users\Administrator\Pictures\1.png");
         }
 
         private void AddRectangle(object sender, RoutedEventArgs e)

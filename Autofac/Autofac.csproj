@@ -145,5 +145,11 @@
   <ItemGroup>
     <Folder Include="ViewModel\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CustomCurve\CustomCurve.csproj">
+      <Project>{8333a9ce-79e0-45dd-a409-213e13e54009}</Project>
+      <Name>CustomCurve</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

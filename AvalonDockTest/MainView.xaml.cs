@@ -48,7 +48,7 @@ namespace AvalonDockTest
             var currentContentsList = dockManager.Layout.Descendents().OfType<LayoutContent>().Where(c => c.ContentId != null).ToArray();
 
             var serializer = new XmlLayoutSerializer(dockManager);
-            using (var stream = new StreamReader(string.Format(@"C:\Users\Administrator\Desktop\SonicProject\FrameTest\AvalonDockTest\bin\Debug\AvalonDock_{0}.config", "dock")))
+            using (var stream = new StreamReader(string.Format(@".\AvalonDock_{0}.config", "dock")))
                 serializer.Deserialize(stream);
         }
 
@@ -64,7 +64,7 @@ namespace AvalonDockTest
 
         private void ButtonLoadImage_Click(object sender, RoutedEventArgs e)
         {
-            image1.LoadFile(@"C:\Users\Administrator\Pictures\openCV/2.png");
+            image1.LoadFile(@"C:\Users\Administrator\Pictures\版本图片\353\5.tiff");
         }
 
         private void GCClear(object sender, RoutedEventArgs e)

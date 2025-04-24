@@ -88,7 +88,7 @@
                         <LayoutAnchorGroup>
                             <LayoutAnchorable Title="A-Scan" ContentId="A-Scan">
                                 <Grid Background="#aeafaa">
-                                    <Button Click="ButtonLoadImage_Click" Margin="0,10,0,0" Content="加载图片" />
+                                    <local:AScanWave />
                                 </Grid>
                             </LayoutAnchorable>
 
@@ -98,11 +98,15 @@
                                 </Grid>
                             </LayoutAnchorable>
                             <LayoutAnchorable Title="Scanner" ContentId="Scanner">
-                                <Grid Background="#aeafaa" />
+                                <Grid Background="#aeafaa">
+                                    <Button Click="ButtonLoadImage_Click"  Margin="0,10,0,0" Content="load" />
+                                </Grid>
                             </LayoutAnchorable>
 
                             <LayoutAnchorable Title="Log" ContentId="History Log">
-                                <Grid Background="#aeafaa" />
+                                <Grid Background="#aeafaa">
+                                    <Button Click="Button_Click"  Margin="0,10,0,0" Content="save" />
+                                </Grid>
                             </LayoutAnchorable>
                         </LayoutAnchorGroup>
                     </LayoutAnchorSide>

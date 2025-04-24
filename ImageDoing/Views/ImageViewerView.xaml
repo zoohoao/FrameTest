@@ -50,6 +50,11 @@
                                 x:Name="MyImage"
                                 RenderOptions.BitmapScalingMode="NearestNeighbor"
                                 Stretch="None" />
+                            <Path  Stroke="Black" StrokeThickness="2">
+                                <Path.Data>
+                                    <RectangleGeometry Rect="200,10,100,50" RadiusX="10" RadiusY="10"/>
+                                </Path.Data>
+                            </Path>
                         </Canvas>
                         <!--  用来显示正被拖拽绘制的“选区”  -->
                         <Rectangle
@@ -57,6 +62,8 @@
                             Stroke="Red"
                             StrokeThickness="1"
                             Visibility="Collapsed" />
+                        
+                        
                     </Canvas>
                 </Grid>
                 <Grid
