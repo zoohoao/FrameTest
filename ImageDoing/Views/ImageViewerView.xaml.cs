@@ -1,4 +1,5 @@
 ﻿using ImageDoing.Models;
+using ImageDoing.Shapes;
 using System;
 using System.Runtime.InteropServices;
 using System.Windows;
@@ -171,9 +172,8 @@ namespace ImageDoing
             }// 右键画矩形
             if (_isRectSelecting)
             {
-                if (!_selector.IsSelecting) return;
                 var pt = e.GetPosition(canvasContainer);
-                _selector.Update(pt, ZoomFactor);
+                _selector.Update(pt);
             }
             // 鼠标停留时，无论是否拖拽，都可显示坐标
             UpdateInfoText(currentPos);
@@ -420,23 +420,20 @@ namespace ImageDoing
         // 右键矩形选择
         private bool _isRectSelecting = false;  // 是否正在右键拖拽画矩形
 
-        private Point _rectStartPos;            // 起点 (Canvas 坐标)
-        private PointF _rectPos;
-        private Rectangle rectangle;
+        public ShapesEnum ShapsModel = ShapesEnum.EllipseShap;
 
         private void MyCanvas_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             _isRectSelecting = true;
-            _selector = new RectSelector(canvasContainer) { ZoomFactor = ZoomFactor / 1.0 };
+            _selector = ShapsFactor.CreateShaps(ShapsModel, canvasContainer);
             var pt = e.GetPosition(canvasContainer);
             _selector.Start(pt);
         }
 
-        private RectSelector _selector;
+        private ZShapes _selector;
 
         private void MyCanvas_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
-            if (!_selector.IsSelecting) return;
             var pt = e.GetPosition(canvasContainer);
             _selector.Finish(pt, ZoomFactor);
             _isRectSelecting = false;

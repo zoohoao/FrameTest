@@ -8,7 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace ImageDoing.Models
+namespace ImageDoing
 {
     // RectSelector.cs —   负责管理“画矩形”状态机
     public class RectSelector

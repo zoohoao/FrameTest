@@ -57,7 +57,15 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\ImageDocument.cs" />
-    <Compile Include="Models\RectSelector.cs" />
+    <Compile Include="Shapes\CustomEllipse.cs" />
+    <Compile Include="Shapes\EllipseShap.cs" />
+    <Compile Include="Shapes\polygonShap.cs" />
+    <Compile Include="Shapes\RectangleShap.cs" />
+    <Compile Include="Shapes\RectSelector.cs" />
+    <Compile Include="Shapes\ShapeProperties.cs" />
+    <Compile Include="Shapes\Shapes.cs" />
+    <Compile Include="Shapes\ShapesEnum.cs" />
+    <Compile Include="Shapes\ShapsFactor.cs" />
     <Compile Include="Services\PanZoomService.cs" />
     <Compile Include="ViewModels\ImageViewerViewModel.cs" />
     <Compile Include="Views\ImageViewerView.xaml.cs">

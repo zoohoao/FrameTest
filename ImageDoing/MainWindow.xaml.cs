@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 using System.Linq;
 using System.Windows;
+using System.Windows.Shapes;
 
 namespace ImageDoing
 {
@@ -29,7 +30,7 @@ namespace ImageDoing
 
         private void ButtonReset_Click(object sender, RoutedEventArgs e)
         {
-            var rects = image1.canvasContainer.Children.OfType<System.Windows.Shapes.Rectangle>().ToList();
+            var rects = image1.canvasContainer.Children.OfType<Shape>().ToList();
             foreach (var rect in rects)
             {
                 image1.canvasContainer.Children.Remove(rect);

@@ -1,12 +1,16 @@
-﻿<Window x:Class="ImageDoing.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ImageDoing"
-        mc:Ignorable="d" WindowStartupLocation="CenterScreen"
-        Title="WPF Image Zoom and Pan" Height="960" Width="1400"
-        DataContext="{StaticResource locator}">
+﻿<Window
+    x:Class="ImageDoing.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ImageDoing"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="WPF Image Zoom and Pan"
+    Width="1400"
+    Height="960"
+    DataContext="{StaticResource locator}"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
 
     <Grid Background="White">
 
@@ -21,13 +25,31 @@
             </Grid>
         </Grid>
 
-        <Grid Grid.Column="1"  Grid.Row="1" Background="White">
+        <Grid
+            Grid.Row="1"
+            Grid.Column="1"
+            Background="White">
             <StackPanel>
-                <Button Content="加载图片" Margin="0,10,0,0" Click="ButtonLoadImage_Click" />
-                <Button Content="添加矩形" Margin="0,10,0,0" Click="AddRectangle" />
-                <Button Content="显示/隐藏矩形框" Margin="0,10,0,0" Click="ButtonToggleRect_Click" />
-                <Button Content="显示/隐藏红色" Margin="0,10,0,0" Click="ButtonShowHideRed_Click" />
-                <Button Content="重置" Margin="0,10,0,0" Click="ButtonReset_Click" />
+                <Button
+                    Margin="0,10,0,0"
+                    Click="ButtonLoadImage_Click"
+                    Content="加载图片" />
+                <Button
+                    Margin="0,10,0,0"
+                    Click="AddRectangle"
+                    Content="添加矩形" />
+                <Button
+                    Margin="0,10,0,0"
+                    Click="ButtonToggleRect_Click"
+                    Content="显示/隐藏矩形框" />
+                <Button
+                    Margin="0,10,0,0"
+                    Click="ButtonShowHideRed_Click"
+                    Content="显示/隐藏红色" />
+                <Button
+                    Margin="0,10,0,0"
+                    Click="ButtonReset_Click"
+                    Content="重置" />
             </StackPanel>
         </Grid>
     </Grid>
