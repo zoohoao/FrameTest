@@ -12,6 +12,7 @@
                     <Setter.Value>
                         <ControlTemplate>
                             <Border
+                                Height="25"
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}">

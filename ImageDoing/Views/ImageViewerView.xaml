@@ -50,9 +50,12 @@
                                 x:Name="MyImage"
                                 RenderOptions.BitmapScalingMode="NearestNeighbor"
                                 Stretch="None" />
-                            <Path  Stroke="Black" StrokeThickness="2">
+                            <Path Stroke="Black" StrokeThickness="2">
                                 <Path.Data>
-                                    <RectangleGeometry Rect="200,10,100,50" RadiusX="10" RadiusY="10"/>
+                                    <RectangleGeometry
+                                        RadiusX="10"
+                                        RadiusY="10"
+                                        Rect="200,10,100,50" />
                                 </Path.Data>
                             </Path>
                         </Canvas>
@@ -62,8 +65,8 @@
                             Stroke="Red"
                             StrokeThickness="1"
                             Visibility="Collapsed" />
-                        
-                        
+
+
                     </Canvas>
                 </Grid>
                 <Grid

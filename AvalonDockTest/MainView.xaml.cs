@@ -1,4 +1,5 @@
-﻿using AvalonDock.Layout;
+﻿using AvalonDock.Controls;
+using AvalonDock.Layout;
 using AvalonDock.Layout.Serialization;
 using System;
 using System.Collections.Generic;
@@ -73,6 +74,31 @@ namespace AvalonDockTest
             GC.Collect();
             GC.WaitForPendingFinalizers();
             GC.Collect();
+        }
+
+        private void DockManager_LayoutUpdated(object sender, EventArgs e)
+        {
+            foreach (var floatingWindow in dockManager.FloatingWindows)
+            {
+                if (floatingWindow is LayoutAnchorableFloatingWindowControl control)
+                {
+                    if (control.Template == null)
+                    {
+                        continue;
+                    }
+                    // 查找模板中的 DropDownButton
+                    var dropDownButton = control.Template.FindName("SinglePaneContextMenu", control) as DropDownButton;
+                    var PART_PinRestore = control.Template.FindName("PART_PinClose", control) as Button;
+                    if (dropDownButton != null)
+                    {
+                        dropDownButton.Visibility = Visibility.Collapsed;
+                    }
+                    if (PART_PinRestore != null)
+                    {
+                        // PART_PinRestore.Visibility = Visibility.Hidden;
+                    }
+                }
+            }
         }
     }
 }

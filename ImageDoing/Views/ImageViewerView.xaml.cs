@@ -420,7 +420,6 @@ namespace ImageDoing
         // 右键矩形选择
         private bool _isRectSelecting = false;  // 是否正在右键拖拽画矩形
 
-
         private void MyCanvas_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             _isRectSelecting = true;

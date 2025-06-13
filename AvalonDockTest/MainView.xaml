@@ -12,11 +12,18 @@
     d:DesignWidth="800"
     mc:Ignorable="d">
     <Grid>
-        <DockingManager x:Name="dockManager" AllowMixedOrientation="True">
+        <DockingManager
+            x:Name="dockManager"
+            AllowMixedOrientation="True"
+            AutoWindowSizeWhenOpened="True"
+            IsVirtualizingAnchorable="True"
+            IsVirtualizingDocument="True"
+            LayoutUpdated="DockManager_LayoutUpdated">
+
             <DockingManager.AnchorableHeaderTemplate>
                 <DataTemplate>
                     <TextBlock
-                        FontSize="22"
+                        FontSize="10"
                         Text="{Binding Title}"
                         TextTrimming="CharacterEllipsis" />
                 </DataTemplate>
@@ -26,45 +33,50 @@
                 <DataTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="100" />
                         </Grid.ColumnDefinitions>
 
                         <TextBlock
                             Grid.Column="0"
-                            Margin="7,7,7,7"
+                            Margin="5,0,0,0"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            FontSize="20"
+                            FontSize="10"
                             Foreground="White"
-                            Text="{Binding ContentId}" />
+                            Text="{Binding ContentId}"
+                            TextAlignment="Center" />
 
                         <TextBlock
                             Grid.Column="1"
-                            Margin="7,7,7,7"
                             HorizontalAlignment="Center"
-                            FontSize="20"
+                            VerticalAlignment="Center"
+                            FontSize="10"
                             Foreground="White"
-                            Text="{Binding ToolTip}" />
+                            Text="{Binding ToolTip}"
+                            TextAlignment="Center" />
                     </Grid>
                 </DataTemplate>
             </DockingManager.AnchorableTitleTemplate>
 
             <LayoutRoot>
-                <LayoutRoot.LeftSide>
-                    <LayoutAnchorSide>
-                        <LayoutAnchorGroup>
-                            <LayoutAnchorable
-                                Title="Chanel1"
-                                ContentId="Chanel1-Tree"
-                                ToolTip="Tiff-Tree" />
-                        </LayoutAnchorGroup>
-                    </LayoutAnchorSide>
-                </LayoutRoot.LeftSide>
-
                 <LayoutRoot.RootPanel>
                     <LayoutPanel>
+
+                        <LayoutAnchorablePane>
+                            <LayoutAnchorable
+                                x:Name="WinFormsWindow"
+                                Title="WinForms Window"
+                                CanClose="False"
+                                CanHide="False"
+                                ContentId="WinFormsWindow"
+                                FloatingHeight="200"
+                                FloatingWidth="50">
+                                <Grid Background="#aeafaa" />
+                            </LayoutAnchorable>
+                        </LayoutAnchorablePane>
+
                         <LayoutAnchorablePane>
                             <LayoutAnchorable
                                 Title="Chanel1"
@@ -80,37 +92,57 @@
                                 </Grid>
                             </LayoutAnchorable>
                         </LayoutAnchorablePane>
+
+                        <LayoutAnchorablePane DockHeight="200" DockWidth="200">
+                            <LayoutAnchorable
+                                Title="A-Scan"
+                                CanClose="False"
+                                CanHide="False"
+                                ContentId="A-Scan"
+                                FloatingHeight="200"
+                                FloatingWidth="200">
+                                <local:AScanWave MinWidth="180" MinHeight="180" />
+                            </LayoutAnchorable>
+
+                            <LayoutAnchorable
+                                Title="Scanner"
+                                CanClose="False"
+                                CanHide="False"
+                                ContentId="Scanner"
+                                FloatingHeight="200"
+                                FloatingWidth="200" />
+
+                            <LayoutAnchorable
+                                Title="Data"
+                                CanClose="False"
+                                CanHide="False"
+                                ContentId="Data"
+                                FloatingHeight="200"
+                                FloatingWidth="200">
+                                <Button
+                                    Width="180"
+                                    Height="180"
+                                    Click="ButtonLoadImage_Click"
+                                    Content="laod" />
+                            </LayoutAnchorable>
+
+                            <LayoutAnchorable
+                                Title="History"
+                                CanClose="False"
+                                CanHide="False"
+                                ContentId="History"
+                                FloatingHeight="200"
+                                FloatingWidth="200">
+
+                                <Button
+                                    Width="180"
+                                    Height="180"
+                                    Click="Button_Click"
+                                    Content="save" />
+                            </LayoutAnchorable>
+                        </LayoutAnchorablePane>
                     </LayoutPanel>
                 </LayoutRoot.RootPanel>
-
-                <LayoutRoot.RightSide>
-                    <LayoutAnchorSide>
-                        <LayoutAnchorGroup>
-                            <LayoutAnchorable Title="A-Scan" ContentId="A-Scan">
-                                <Grid Background="#aeafaa">
-                                    <local:AScanWave />
-                                </Grid>
-                            </LayoutAnchorable>
-
-                            <LayoutAnchorable Title="Data Processing" ContentId="Data Processing">
-                                <Grid Background="#aeafaa">
-                                    <Button Click="GCClear" Margin="0,10,0,0" Content="GC" />
-                                </Grid>
-                            </LayoutAnchorable>
-                            <LayoutAnchorable Title="Scanner" ContentId="Scanner">
-                                <Grid Background="#aeafaa">
-                                    <Button Click="ButtonLoadImage_Click"  Margin="0,10,0,0" Content="load" />
-                                </Grid>
-                            </LayoutAnchorable>
-
-                            <LayoutAnchorable Title="Log" ContentId="History Log">
-                                <Grid Background="#aeafaa">
-                                    <Button Click="Button_Click"  Margin="0,10,0,0" Content="save" />
-                                </Grid>
-                            </LayoutAnchorable>
-                        </LayoutAnchorGroup>
-                    </LayoutAnchorSide>
-                </LayoutRoot.RightSide>
             </LayoutRoot>
         </DockingManager>
     </Grid>
